@@ -1,7 +1,9 @@
 { pkgs }:
 pkgs.mkShell {
   # Add build dependencies
-  packages = [ ];
+  packages = [
+    pkgs.nodePackages.vercel
+  ];
 
   # Add environment variables
   env = { };
