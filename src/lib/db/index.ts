@@ -7,16 +7,12 @@ import {
   VERCEL,
 } from "$env/static/private";
 
-export function getDB() {
-  const db =
-    VERCEL === "1"
-      ? turso({
-          connection: {
-            url: TURSO_DATABASE_URL,
-            authToken: TURSO_AUTH_TOKEN,
-          },
-        })
-      : bunSQLite(DATABASE_URL);
-
-  return db;
-}
+export const db =
+  VERCEL === "1"
+    ? turso({
+        connection: {
+          url: TURSO_DATABASE_URL,
+          authToken: TURSO_AUTH_TOKEN,
+        },
+      })
+    : bunSQLite(DATABASE_URL);
