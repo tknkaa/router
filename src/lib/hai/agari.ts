@@ -1,12 +1,14 @@
-// refer to https://qiita.com/tomohxx/items/20d886d1991ab89f5522
+// use algorithm suggested in https://qiita.com/tomohxx/items/20d886d1991ab89f5522
+// hand[i] is the number of i
+// hand[0] = 0
 function canDecomposeHand(hand: number[]): boolean {
-  let a = hand[0];
-  let b = hand[1];
+  let a = hand[1];
+  let b = hand[2];
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 1; i <= 7; i++) {
     const r = a % 3;
     if (b >= r && hand[i + 2] >= r) {
-      a = b - 2;
+      a = b - r;
       b = hand[i + 2] - r;
     } else {
       return false;
@@ -19,14 +21,15 @@ function canDecomposeHand(hand: number[]): boolean {
   }
 }
 
+//TODO: チートイツ, 九蓮宝燈
 function isAgariFromEncoded(hand: number[]): boolean {
   let sum = 0;
-  for (let i = 0; i < 9; i++) {
+  for (let i = 1; i <= 9; i++) {
     sum += i * hand[i];
   }
   for (
     let headCandidate = (sum * 2) % 3;
-    headCandidate < 9;
+    headCandidate <= 9;
     headCandidate += 3
   ) {
     hand[headCandidate] -= 2;
@@ -41,25 +44,15 @@ function isAgariFromEncoded(hand: number[]): boolean {
   return false;
 }
 
-function runLengthEncode(rawHand: number[]): number[] {
-  const encodedHand: number[] = [];
+function encode(rawHand: number[]): number[] {
+  const encodedHand: number[] = Array(10).fill(0);
   for (const hai of rawHand) {
-    encodedHand[hai - 1]++;
+    encodedHand[hai]++;
   }
   return encodedHand;
 }
 
-function runLengthDecode(hand: number[]): number[] {
-  const decodedHand: number[] = [];
-  for (let hai = 0; hai < hand.length; hai++) {
-    const count = hand[hai];
-    for (let j = 0; j < count; j++) {
-      decodedHand[hai]++;
-    }
-  }
-  return decodedHand;
-}
 export function isAgariFromRaw(rawhand: number[]): boolean {
-  const encoded = runLengthEncode(rawhand);
+  const encoded = encode(rawhand);
   return isAgariFromEncoded(encoded);
 }

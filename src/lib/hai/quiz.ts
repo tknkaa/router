@@ -1,5 +1,6 @@
 import { isAgariFromRaw } from "./agari";
 
+//TODO: check the number of the same tile is less than or equal to 4.
 function generateTehai(): number[] {
   const tehai: number[] = [];
   for (let i = 0; i < 13; i++) {
@@ -11,7 +12,7 @@ function generateTehai(): number[] {
 
 function findAnswer(hand: number[]): number[] {
   const answers: number[] = [];
-  for (let i = 1; i < 10; i++) {
+  for (let i = 1; i <= 9; i++) {
     const handWithAgariHai = [...hand, i];
     handWithAgariHai.sort();
     if (isAgariFromRaw(handWithAgariHai)) {
@@ -27,18 +28,21 @@ type Quiz = {
 };
 
 export function generateQuiz(): Quiz | null {
-  const isComplete = false;
-  let count = 0;
-  while (!isComplete && count <= 10) {
+  let maxAttempts = 10;
+  for (let count = 0; count < maxAttempts; count++) {
     const tehai = generateTehai();
+    console.log("tehai: ", count, tehai);
     const answers = findAnswer(tehai);
+    console.log("answers: ", count, answers);
     if (answers.length > 0) {
       return {
         tehai,
         answers,
       };
     }
-    count++;
   }
   return null;
 }
+
+
+generateQuiz()
