@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "bun run --bun vite dev",
     "format": "bunx prettier . --write",
+    "seed": "bun run src/lib/db/seed.ts",
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
