@@ -1,0 +1,19 @@
+{
+  "name": "router",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "node index.ts",
+    "fmt": "oxfmt",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.2.3",
+    "oxfmt": "^0.33.0"
+  }
+}
